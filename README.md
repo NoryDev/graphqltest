@@ -6,12 +6,13 @@ mutation {
     body:    "hello dolly"
   }){
     post {
+      id
       body
     }
     errors
+    success
   }
 }
-
 ### Query
 {
   posts{
