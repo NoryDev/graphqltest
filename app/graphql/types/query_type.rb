@@ -15,14 +15,14 @@ Types::QueryType = GraphQL::ObjectType.define do
     type Types::UserType
     argument :id, !types.ID
     description "Find a User by ID"
-    resolve ->(obj, args, ctx) { Loaders::Record.for(User).load(args["id"]) }
+    resolve ->(obj, args, ctx) { Loaders::Record.for(::User).load(args["id"].to_i) }
   end
 
   field :post do
     type Types::PostType
     argument :id, !types.ID
     description "Find a Post by ID"
-    resolve ->(obj, args, ctx) { Loaders::Record.for(Product).load(args["id"]) }
+    resolve ->(obj, args, ctx) { Loaders::Record.for(::Post).load(args["id"].to_i) }
   end
 
   field :posts do

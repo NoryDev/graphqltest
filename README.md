@@ -1,24 +1,29 @@
-# README
+### Mutation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+mutation {
+  addPost(input: {
+    user_id: 1,
+    body:    "hello dolly"
+  }){
+    post {
+      body
+    }
+    errors
+  }
+}
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Query
+{
+  posts{
+    id
+    body
+    user{
+      name
+    }
+    comments{
+      user{
+        name
+      }
+    }
+  }
+}

@@ -1,20 +1,21 @@
 Mutations::AddPost = GraphQL::Relay::Mutation.define do
 
-  # name "AddPost"
+  name "AddPost"
+  description "Create a new post"
 
-  input_field :user_id, !types.Int
+  input_field :user_id, !types.ID
   input_field :body,    !types.String
 
-  return_field :post, Types::PostType
+  return_field :post, ::Types::PostType
+  return_field :errors, types[types.String]
   # return_interfaces [Mutations::Result]
 
-  resolve ->(t, input, c) {
-    post = ::Post.new
-    # title = args['post']['title']
-    # description = args['post']['description']
-    # Post.create(title: title, description: description)
+  resolve ->(_, input, _) do
+    post = ::Post.new(body: input[:body])
+    post.valid?
     {
-      post: post
+      post: post,
+      errors: post.errors.full_messages
     }
-  }
+  end
 end
